@@ -1,6 +1,53 @@
 'use client';
 
+import { useState } from 'react';
 import { Twitch, Twitter, TrendingUp, Users, Heart, Monitor, ShoppingBag, Eye, Headphones, Instagram, Glasses } from 'lucide-react';
+
+// Composant Carte Partenaire avec bouton Copier
+const PartnerCard = ({ name, logo, link, code, isIcon = false }: { name: string; logo?: string; link: string; code: string; isIcon?: boolean }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div className="flex flex-col items-center bg-[#18181b] p-4 rounded-xl border border-white/5 hover:border-[#9146FF]/50 transition group">
+      {/* Lien vers le site du partenaire */}
+      <a href={link} target="_blank" rel="noopener noreferrer" className="block mb-4 hover:opacity-80 transition">
+        {isIcon ? (
+          <div className="text-center">
+            <Glasses className="w-12 h-12 text-[#F97316] mx-auto mb-2 group-hover:scale-110 transition-transform" />
+            <div className="font-bold text-lg">{name}</div>
+          </div>
+        ) : (
+          <img src={logo} alt={name} className="h-12 object-contain mx-auto" />
+        )}
+      </a>
+
+      {/* Zone Code Promo */}
+      <div className="flex items-center gap-2 bg-black/50 px-3 py-2 rounded-lg border border-white/10 w-full justify-between">
+        <span className="font-mono text-[#F97316] font-bold tracking-wider text-sm">
+          {code}
+        </span>
+        
+        <button 
+          onClick={handleCopy}
+          className="text-xs bg-white/10 hover:bg-white/20 text-white px-2 py-1 rounded transition flex items-center gap-1"
+          title="Copier le code"
+        >
+          {copied ? (
+            <span className="text-green-400">Copié !</span>
+          ) : (
+            <span>Copier</span>
+          )}
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default function Home() {
   return (
@@ -232,104 +279,53 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-[#9146FF] to-[#F97316]">
-              Ils soutiennent la chaîne
+              Nos Partenaires & Codes Promos 🎁
             </h2>
-            <p className="text-gray-400 text-lg">Merci à mes partenaires de confiance ❤️</p>
+            <p className="text-gray-400 text-lg">Profite de réductions exclusives avec mes codes !</p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {/* Partenaire 1 */}
-            <a
-              href="https://nolagvpn.com/join/SPICYFR"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#18181b] rounded-2xl p-6 border border-white/5 hover:border-[#9146FF]/50 transition-all hover:scale-105 flex items-center justify-center min-h-[140px] group cursor-pointer"
-            >
-              <div className="text-center">
-                <img 
-                  src="/image/nolagvpn-logo-v3.webp" 
-                  alt="NoLagVPN" 
-                  className="w-24 h-auto mx-auto mb-2 group-hover:scale-110 transition-transform"
-                />
-              </div>
-            </a>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <PartnerCard 
+              name="NoLagVPN" 
+              logo="/image/nolagvpn-logo-v3.webp" 
+              link="https://nolagvpn.com/join/SPICYFR" 
+              code="SPICYFR" 
+            />
 
-            {/* Partenaire 2 */}
-            <a
-              href="https://www.monpokestore.fr/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#18181b] rounded-2xl p-6 border border-white/5 hover:border-[#F97316]/50 transition-all hover:scale-105 flex items-center justify-center min-h-[140px] group cursor-pointer"
-            >
-              <div className="text-center">
-                <img 
-                  src="/image/Logo-300x100.avif" 
-                  alt="MonPokestore" 
-                  className="w-24 h-auto mx-auto mb-2 group-hover:scale-110 transition-transform"
-                />
-              </div>
-            </a>
+            <PartnerCard 
+              name="MonPokestore" 
+              logo="/image/Logo-300x100.avif" 
+              link="https://www.monpokestore.fr/" 
+              code="SPICY" 
+            />
+            
+            <PartnerCard 
+              name="West Gaming" 
+              logo="/image/logo.svg" 
+              link="https://westgaming.fr/?opaffi=7d964d2b4f" 
+              code="SPICY" 
+            />
 
-            {/* Partenaire 3 */}
-            <a
-              href="https://westgaming.fr/?opaffi=7d964d2b4f"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#18181b] rounded-2xl p-6 border border-white/5 hover:border-[#9146FF]/50 transition-all hover:scale-105 flex items-center justify-center min-h-[140px] group cursor-pointer"
-            >
-              <div className="text-center">
-                <img 
-                  src="/image/logo.svg" 
-                  alt="West Gaming" 
-                  className="w-24 h-auto mx-auto mb-2 group-hover:scale-110 transition-transform"
-                />
-              </div>
-            </a>
+            <PartnerCard 
+              name="GUNNAR" 
+              link="https://www.gunnar.fr/" 
+              code="Spicy" 
+              isIcon={true}
+            />
 
-            {/* Partenaire 4 */}
-            <a
-              href="https://www.gunnar.fr/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#18181b] rounded-2xl p-6 border border-white/5 hover:border-[#F97316]/50 transition-all hover:scale-105 flex items-center justify-center min-h-[140px] group cursor-pointer"
-            >
-              <div className="text-center">
-                <Glasses className="w-10 h-10 text-[#F97316] mx-auto mb-3 group-hover:scale-110 transition-transform" />
-                <div className="font-bold text-lg">GUNNAR</div>
-              </div>
-            </a>
+            <PartnerCard 
+              name="Maté In" 
+              logo="/image/logo-matein-transparent.avif" 
+              link="https://mate-in.com/" 
+              code="Spicy" 
+            />
 
-            {/* Partenaire 5 */}
-            <a
-              href="https://mate-in.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#18181b] rounded-2xl p-6 border border-white/5 hover:border-[#9146FF]/50 transition-all hover:scale-105 flex items-center justify-center min-h-[140px] group cursor-pointer"
-            >
-              <div className="text-center">
-                <img 
-                  src="/image/logo-matein-transparent.avif" 
-                  alt="Maté In" 
-                  className="w-24 h-auto mx-auto mb-2 group-hover:scale-110 transition-transform"
-                />
-              </div>
-            </a>
-
-            {/* Partenaire 6 */}
-            <a
-              href="https://fr.hyperx.com/products/hyperx-cloud-stinger-2-core-wired-gaming-headset-ps5?utm_source=Influencer&utm_medium=Social&utm_campaign=SEMA_FY26&utm_content=Spicy_FR_Influencer"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-[#18181b] rounded-2xl p-6 border border-white/5 hover:border-[#F97316]/50 transition-all hover:scale-105 flex items-center justify-center min-h-[140px] group cursor-pointer"
-            >
-              <div className="text-center">
-                <img 
-                  src="/image/hyperxlogo_200x.svg" 
-                  alt="HyperX" 
-                  className="w-24 h-auto mx-auto mb-2 group-hover:scale-110 transition-transform"
-                />
-              </div>
-            </a>
+            <PartnerCard 
+              name="HyperX" 
+              logo="/image/hyperxlogo_200x.svg" 
+              link="https://fr.hyperx.com/products/hyperx-cloud-stinger-2-core-wired-gaming-headset-ps5?utm_source=Influencer&utm_medium=Social&utm_campaign=SEMA_FY26&utm_content=Spicy_FR_Influencer" 
+              code="SPICYFR" 
+            />
           </div>
 
           {/* Bouton Devenir Partenaire */}

@@ -192,12 +192,6 @@ export const streamerConfig: StreamerConfig = {
       link: "https://mate-in.com/",
       code: "Spicy",
     },
-    {
-      name: "HyperX",
-      logo: "/image/hyperxlogo_200x.svg",
-      link: "https://fr.hyperx.com/products/hyperx-cloud-stinger-2-core-wired-gaming-headset-ps5?utm_source=Influencer&utm_medium=Social&utm_campaign=SEMA_FY26&utm_content=Spicy_FR_Influencer",
-      code: "SPICYFR",
-    },
   ],
 
   seo: {
